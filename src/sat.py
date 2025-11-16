@@ -60,7 +60,83 @@ class SatSolver(SatSolverAbstractClass):
         pass
 
     def sat_bruteforce(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
-        pass
+
+        def generate_solutions(n_vars: int, max_assignments):
+            """
+            This is a generator to yield one assignment at a time in order to reduce time complexity.
+            Each assignment is a list of variablles, where the index correlates to a variable, and its value is either 0/1.
+            For example:
+                assignment[0] correlates to variable 1
+                assignment[1] correlates to variable 2
+            """
+
+            # Error Check: if n_vars is 0 or negative, do not assign anything and return
+            if n_vars <= 0:
+                yield []
+                return
+            
+            # First assignment generated is all 0s
+            assignment = [ 0 for _ in range(n_vars)]
+
+            assignments_generated = 0 #Count how many assignments were generated
+
+            for i in range(max_assignments):
+                
+                yield assignment
+                assignments_generated += 1
+
+                # This algorithm loops over list and generates a new assignment
+                curr = 0
+                while curr < n_vars:
+                    if assignment[curr] == 0:
+                        assignment[curr] = 1
+                        break
+                    else:
+                        assignment[curr] = 0
+                        curr += 1
+                    
+                # All assignments have been generated
+                if curr >= n_vars:
+                    return
+
+        def satisfiable_verifier(assignment: List[int], clauses:List[List[int]]) -> bool:
+            
+            for clause in clauses:
+
+                clause_satisfiable = False
+
+                for literal in clause:
+                
+                    # Need to absolute value because literal could be negative
+                    # and have to subtract 1 to shift to correlate to list indexing
+                    var_idx = abs(literal) - 1
+
+                    value = assignment[var_idx]
+                    
+                    # Check if literal would be True or False
+                    if value == 1 and literal > 0 or value == 0 and literal < 0:
+                        clause_satisfiable = True
+                        break
+
+                # If clause is not satisfiable, return false (which will cause a new assignment to be generated below)    
+                if not clause_satisfiable:
+                    return False
+
+            # If all clauses were not false, then the assignment is a solution  
+            return True
+
+        max_assignments = 1 << n_vars #Bit shift to calculate (2^n_vars)
+
+        for assignment in generate_solutions(n_vars, max_assignments):
+            if satisfiable_verifier(assignment, clauses):
+                solution = {}
+                for i in range(n_vars):
+                    solution[i+1] = assignment[i]
+                return True, solution
+            
+        # If no solution found, will return False with no variables assigned
+        return False, {}
+
 
     def sat_bestcase(self, n_vars:int, clauses:List[List[int]]) -> Tuple[bool, Dict[int, bool]]:
         pass

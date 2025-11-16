@@ -1,92 +1,71 @@
-Overview: These instructions provide you with a skeleton python definition for each problem type. After cloning this repo, you will modify only those functions that you have signed up for (at most 3 for a three person group)
-* You will clone a repo that has skeleton code for each possible program.
-* You will modify the body of your selected code for your implementation. Do not change the arguments.
-* Your output should be a csv file - format given in the python comments for each function.
-* Instructions are also included on running your code when you want to test it.
-* When you modified code is called the arguments to the function on each call provide a test case (you do not need to read test cases rom any files with this procedure).
-* The testing infrastructure will feed the test problems to your code one at a time, will accumulate your responses to it, and will return a score.
-* The "input" folder holds the test cases that the above mechanism will use when you run your tests.
-* The test cases to be used for grading are separate, and are not visible to you.
-* If you need to access other python packages in your code, the UV package discussed below can give your functions access to them.
-* Send all questions about this infrastructure to Laxminarayana Vadnala lvadnala@nd.edu
-
-<!-- ## instructions to generate a PAT (a Personal Access Token): -->
-
-
-<!-- * Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-* Click "Generate new token" → "Generate new token (classic)"
-* Set expiration (90 days recommended)
-* Select scopes: repo (full control of private repositories)
-* Generate token and copy it -->
+Project TeamworkTemplate
+Version 1 9/11/24
+A separate copy of this template should be filled out and submitted by each student, regardless of the number of students on the team. Also change the title of this template to “Project x Teamwork <team> - <netid>”
+1
+	Team Name: Dishy Wizard
+	2
+	Individual name: Jack Frauenhofer
+	3
+	Individual netid: jfrauenh
+	4
+	Other team members names and netids: N/A
+	5
+	Link to github repository: 
+	6
+	Overall project attempted, with sub-projects: Brute-Force SAT Solver
+	7
+	List of included files (if you have many files of a certain type, such as test files of different sizes, list just the folder): (Add more rows as necessary)
 
 
-## Student Instructions to clone the repository and how to run and finally submit the assignment:
-------------------
-* From your browser, go to [GITHUB URL](https://github.com/pkogge/Project1-TOC) and click the fork button as shown in the picture below
+File/folder Name
+	File Contents and Use
+	Code Files
+	plot_results-DishyWizard.py
+	Used to plot the results from the brute force SAT solver
+	sat.py
+	Updated the ‘sat_bruteforce’ function.
+	reformatcnf-DishyWizard.py
+	
 
+	Test Files
+	cnffile.cnf
+	Basic CNF file input to test Brute Force SAT solver on few instances. This file was included in the original github clone as a basic test. I used this file to mainly test that the output of my solver was working before running the CNF’s with much more instances.
+	check-kSAT.cnf-DishyWizard
+	CNF file that contains instances of various k-complexities to test Brute Force SAT solver. This file was sourced from the canvas resource page.
+	check-2SAT.cnf-DishyWizard
+	CNF file that contains instances of only k=2 complexity SATs to test Brute Force SAT solver. This file was sourced from the canvas resource page.
+	Output Files
+	brute_force_cnffile_sat_solver_results-DishyWizard.csv
+	CSV file that includes the output from running Brute Force on input file ‘cnffile.cnf’
+	brute_force_kSAT_sat_solver_results-DishyWizard.csv
+	CSV file that includes the output from running Brute Force on input file ‘check-kSAT.cnf-DishyWizard’.
+	brute_force_2SAT_sat_solver_results-DishyWizard.csv
+	CSV file that includes the output from running Brute Force on input file ‘check-kSAT.cnf-DishyWizard’.
+	Plots (as needed)
+	plots-brute_force_cnffile-DishyWizard.png
+	Simple plot analyzing various execution times compared to different instances. This plot is not materially helpful in analyzing different complexities and their time executions - it was more to test if the output of my ‘plot_results.py’ was working.
+	plots-brute_force_kSAT-DishyWizard.png
+	Plot analyzing various execution times compared to different instances with various k-complexities
+	plots-brute_force_2SAT-DishyWizard.png
+	Plot analyzing various execution times compared to different instances, all with k=2 complexities.
+	
 
-![fork_button](documentation/assets/fork_button.png "fork button")
-
-
-* You will now enter the fork screen, from here make sure to select your own github account which is highlighted in screen below (for instance, I have selected my own personal account), after that click on the `create fork` button highlighted in orange arrow and box.
-
-![fork_screen](documentation/assets/fork_screen.png "fork screen")
-
-* You will now see the screen which looks like below, the first red box on left should reflect your own github account and should say forked from `forked from pkogge/Project1-TOC.` Then you can follow general instructions of cloning the github repository. Here is the [Docs Link](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) that can help you to clone the github repository on your computer.
-
-![cloned_repo](documentation/assets/cloned_repo.png "cloned_repo")
-
-* Once you clone the repository, open the project in the IDE of your choice.
-
-### Getting started with the python support package manager "UV" installation.
-----------------
-
-* Start  by installing `UV` in your machine. Here is the [instructions page](https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_1) that helps you to install the `UV`.
-
-* Immediately after installing it run command `uv sync` which installs the pytests and other required packages.
-
-* NOTE: If you are struggling with installing `UV` please feel to reach me out via slack, I can help you navigate. lvadnala@nd.edu
-
-* This project template is equipped with all the packages required for your project. No additional python packages are required to be installed, but if you want to install additional python packages make sure use the command `uv add <python-package-name>` (mostly it is not useful).
-
-### How can we run the code using UV when other packages are needed
-----------------
-* For this project I am using UV to demonstrate to run the code. Basically you need to use the command `uv run main.py` from the root of the project folder in the terminal to see your code executes.
-* Immediately after cloning the repository, and you didnt do any code changes, if you run the command `uv run main.py` you would see the results below.
-
-```
-lax@Mac Project1-TOC % uv run main.py
-Hello from project1_toc!
-```
-
-* the `Hello from project1_toc` message states that you are good to make changes to the code.
-
-### Making changes to the code and running the test cases of your own
-----------------
-
-* Here is the folder structure that every student should make changes to. This is personalized for SAT, but the others are similar. The src directory hold the code you want to modify.
-
-```
-.
-|── src/
-│   |── entrypoint.py
-|-- results/
-|   |-- SATu.cnf
-|-- module_tests/
-|   |-- test_sample.py
-|-- main.py
-```
-
-* The `src/entrypoint.py` file contains the function called as `main.` Make sure to add all your auxikiary files into the `src` folder and make sure to use the `entrypoint.py` file's main function as your main function Dont change this structure as if you do the automation wont be able to perform the grading.
-* The `results` folder is where you should save your results from the project. For SAT the project is expected to generate `cnf` files which are basically the CSV files, make sure to save all the results generated by code to results folder (!!! This is most important otherwise you might loose points).
-* The `module_tests` is the folder where you can add your own custom test cases. If you are familiar with pytests you can do so, but it is not compulsory to add test cases to the project, its totally the students choice to add, since the pytests have a little learning curve.
-* `main.py` please dont edit this file, this is the main file and it should stay like this.
-* Once you add your own test cases please make sure to run the `uv run pytest -s` (optional step, should only perform this if you haev added test cases as per the pytest standard)
-
-
-### Commit the code and make sure to raise a PR (Pull Request)
----------------
-
-* Push the changes to the repositiory. Here is the [Docs Link](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository) that helps you with basic git commands to push the code.
-* Now the last step is to raise the PR to the Forked repo, here is the [Docs link](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
-* Please update the PR link to the [Teams Spread Sheet](https://docs.google.com/spreadsheets/d/1FYyJMDnft__n0SohcIcSL7lUO60RMtJk9nuVJ5l30SY/edit?usp=sharing) shared by Dr. Kogge. This is most important since we grade only the links that are part of the teams spreadsheet.
+	8
+	Individual Student time (in hours) to complete: 10 hours
+	9
+	Your specific activities and responsibilities:
+* I built the ‘sat_bruteforce’ function
+* I built the ‘plot_results-DishyWizard.py’ script to plot the results of the SAT solver
+* I built the ‘reformatcnf-DishyWizard.py’
+	10
+	What was personally learned (topic, programming, algorithms)
+* I learned how to build a brute force algorithm to actually solve an SAT
+* Because 2SAT.cnf had commas instead of spaces when lines started with a ‘c’ or a ‘p’, I learned how to parse a csv using the script that I built named ‘reformatcnf-DishyWizard.py’
+* Overall, it was helpful to learn the layout of the github folder. In order to build ‘sat_bruteforce’, I had to effectively understand all of the helper functions. This was a great learning exercise to practice my python programming as a result.
+	11
+	How the team was organized, and what might be improved.
+* I was a one man team, hence why I only completed ‘sat_bruteforce’. Thus, all responsibilities and progress with this project was from my individual work.
+* In general, the program could be improved by implementing the ‘plot_results.py’ script to be run after each input when ‘uv run main.py’ is run. In the github, we were warned not to interfere with this script, so I thought it was best to manually create the plots. However, I think automating this process of updating the input_file for the plot into the direct function when the output CSV file is created would help automate the process.
+* Although I signed up to build the ‘sat_bruteforce’ function, there are clearly better, more time-effective ways to solve SAT problems. Brute force is a relatively basic, less time-efficient solver than backtracking or other solvers. Thus, I would want to improve my solver by implementing the other more effective solvers.
+	12
+	Any additional material: None
